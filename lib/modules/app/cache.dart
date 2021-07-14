@@ -15,7 +15,7 @@ class Cache {
     await Hive.openBox<T>(T.toString());
   }
 
-  static Box box<T>() {
+  static Box<T> box<T>() {
     return Hive.box<T>(T.toString());
   }
 }

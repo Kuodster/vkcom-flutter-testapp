@@ -34,11 +34,13 @@ class AccessTokenData {
     };
   }
 
+  static Box<AccessTokenData> get cacheBox => Cache.box<AccessTokenData>();
+
   Future<void> remove() async {
-    await Cache.box<AccessTokenData>().delete(cacheBoxKey);
+    await cacheBox.delete(cacheBoxKey);
   }
 
   factory AccessTokenData.fromCache() {
-    return Cache.box<AccessTokenData>().get(cacheBoxKey)!;
+    return cacheBox.get(cacheBoxKey)!;
   }
 }
