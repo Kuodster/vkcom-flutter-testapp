@@ -34,6 +34,15 @@ class _MaterialApplicationState extends State<MaterialApplication> {
             statusBarColor: Colors.transparent,
           ),
         ),
+        dialogTheme: const DialogTheme(
+          backgroundColor: Color(0xff19191a),
+          titleTextStyle: TextStyle(
+            color: Colors.white70,
+          ),
+          contentTextStyle: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }

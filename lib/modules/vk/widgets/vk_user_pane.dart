@@ -60,7 +60,7 @@ class VkUserPane extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () => AuthHelper.logout(context),
+                onPressed: () => AuthHelper.logoutWithConfirmation(context),
                 icon: const Icon(
                   Icons.exit_to_app,
                   color: Colors.white,
