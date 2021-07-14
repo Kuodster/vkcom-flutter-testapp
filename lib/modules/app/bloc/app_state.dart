@@ -26,3 +26,5 @@ class AppStartupFailed extends AppState {
 class AppUnauthenticated extends AppState {}
 
 class AppAuthenticated extends AppState {}
+
+class AppAuthenticationUserCancelled extends AppState {}

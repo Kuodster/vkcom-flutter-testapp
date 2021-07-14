@@ -6,6 +6,7 @@ import 'package:syazanou/modules/app/service_locator.dart';
 import 'package:syazanou/modules/app/widgets/loading_indicator.dart';
 import 'package:syazanou/modules/app/widgets/page_error.dart';
 import 'package:syazanou/modules/app/widgets/page_wrapper.dart';
+import 'package:syazanou/modules/app/widgets/styled_button.dart';
 import 'package:syazanou/modules/auth/models/access_token_data.dart';
 import 'package:syazanou/modules/vk/repository.dart';
 
@@ -35,9 +36,13 @@ class __InnerState extends State<_Inner> {
   Future<void> _startAuthentication() async {
     final result = await AutoRouter.of(context).pushNamed(Routes.vkAuthPage);
     if (result is Map) {
-      final accessTokenData = AccessTokenData.fromJson(result);
-      _appBloc.add(SaveAccessToken(accessTokenData: accessTokenData));
+      if (result.containsKey('access_token')) {
+        final accessTokenData = AccessTokenData.fromJson(result);
+        _appBloc.add(SaveAccessToken(accessTokenData: accessTokenData));
+        return;
+      }
     }
+    _appBloc.add(AuthenticationFailed());
   }
 
   @override
@@ -72,6 +77,8 @@ class __InnerState extends State<_Inner> {
             onRefresh: _startApplication,
           );
         }
+        final showLoginButton = state is AppAuthenticationUserCancelled;
+
         return SizedBox.expand(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -84,15 +91,20 @@ class __InnerState extends State<_Inner> {
                   width: 100.0,
                 ),
                 const SizedBox(height: 20.0),
-                SizedBox(
-                  width: 30.0,
-                  height: 30.0,
-                  child: FittedBox(
-                    child: LoadingIndicator(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
+                showLoginButton
+                    ? StyledButton(
+                        onTap: _startAuthentication,
+                        label: 'Вход',
+                      )
+                    : SizedBox(
+                        width: 30.0,
+                        height: 30.0,
+                        child: FittedBox(
+                          child: LoadingIndicator(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
               ],
             ),
           ),

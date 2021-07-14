@@ -76,5 +76,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       );
       add(StartApplication());
     }
+
+    if (event is AuthenticationFailed) {
+      yield AppAuthenticationUserCancelled();
+    }
   }
 }

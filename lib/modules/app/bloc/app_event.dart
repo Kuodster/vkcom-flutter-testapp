@@ -9,6 +9,8 @@ abstract class AppEvent extends Equatable {
 
 class StartApplication extends AppEvent {}
 
+class AuthenticationFailed extends AppEvent {}
+
 class SaveAccessToken extends AppEvent {
   final AccessTokenData accessTokenData;
 
