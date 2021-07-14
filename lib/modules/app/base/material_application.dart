@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:syazanou/modules/app/observers/navigation_observer.dart';
 import 'package:syazanou/modules/app/routing/router.dart';
 
 class MaterialApplication extends StatefulWidget {
@@ -16,7 +17,11 @@ class _MaterialApplicationState extends State<MaterialApplication> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerDelegate: _appRouter.delegate(),
+      routerDelegate: _appRouter.delegate(
+        navigatorObservers: () => [
+          NavigationObserver(),
+        ],
+      ),
       routeInformationParser: _appRouter.defaultRouteParser(),
       title: 'VK.com Client',
       themeMode: ThemeMode.light,

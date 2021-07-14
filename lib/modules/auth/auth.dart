@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:syazanou/modules/vk/models/vk_user.dart';
 
+import 'models/access_token_data.dart';
+
 class Auth {
   Auth._();
 
-  static void destroy() {
+  static Future<void> destroy() async {
+    await AccessTokenData.fromCache()?.remove();
     user = null;
   }
 

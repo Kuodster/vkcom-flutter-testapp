@@ -60,6 +60,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         if (e is DioError && e.type == DioErrorType.other) {
           final exception = e.error;
           if (exception is ApiException && [5, 28].contains(exception.error)) {
+            await Auth.destroy();
             yield AppUnauthenticated();
             return;
           }
@@ -73,7 +74,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         AccessTokenData.cacheBoxKey,
         event.accessTokenData,
       );
-      yield AppAuthenticated();
+      add(StartApplication());
     }
   }
 }

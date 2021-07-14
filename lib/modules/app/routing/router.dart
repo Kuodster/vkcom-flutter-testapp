@@ -10,9 +10,25 @@ export 'package:auto_route/annotations.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    AutoRoute(page: SplashPage, initial: true),
-    AutoRoute(page: VkAuthPage),
-    AutoRoute(page: VkDashboardPage),
+    AutoRoute(
+      page: SplashPage,
+      initial: true,
+      path: Routes.splashPage,
+    ),
+    AutoRoute(
+      page: VkAuthPage,
+      path: Routes.vkAuthPage,
+    ),
+    AutoRoute(
+      page: VkDashboardPage,
+      path: Routes.vkDashboardPage,
+    ),
   ],
 )
 class $AppRouter {}
+
+class Routes {
+  static const String splashPage = '/';
+  static const String vkAuthPage = '/vk/implicit-flow-auth';
+  static const String vkDashboardPage = '/dashboard';
+}

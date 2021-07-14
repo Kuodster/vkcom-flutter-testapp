@@ -33,7 +33,7 @@ class __InnerState extends State<_Inner> {
   );
 
   Future<void> _startAuthentication() async {
-    final result = await AutoRouter.of(context).push(const VkAuthRoute());
+    final result = await AutoRouter.of(context).pushNamed(Routes.vkAuthPage);
     if (result is Map) {
       final accessTokenData = AccessTokenData.fromJson(result);
       _appBloc.add(SaveAccessToken(accessTokenData: accessTokenData));
@@ -62,7 +62,7 @@ class __InnerState extends State<_Inner> {
           _startAuthentication();
         }
         if (state is AppAuthenticated) {
-          context.router.replace(const VkDashboardRoute());
+          context.router.replaceNamed(Routes.vkDashboardPage);
         }
       },
       builder: (context, state) {
