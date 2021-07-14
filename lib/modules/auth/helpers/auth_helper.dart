@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syazanou/modules/app/routing/router.dart';
+import 'package:syazanou/modules/auth/auth.dart';
 import 'package:syazanou/modules/auth/models/access_token_data.dart';
 
 class AuthHelper {
   static Future<void> logout(BuildContext context) async {
-    await AccessTokenData.fromCache().remove();
+    await AccessTokenData.fromCache()?.remove();
+    Auth.destroy();
     await context.router.pushAndPopUntil(
       const SplashRoute(),
       predicate: (route) => false,

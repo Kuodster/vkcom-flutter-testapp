@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:syazanou/modules/app/service_locator.dart';
 import 'package:syazanou/modules/app/widgets/network_connection_status.dart';
 import 'package:syazanou/modules/app/widgets/page_error.dart';
 import 'package:syazanou/modules/app/widgets/page_loading.dart';
 import 'package:syazanou/modules/app/widgets/page_wrapper.dart';
+import 'package:syazanou/modules/auth/auth.dart';
 import 'package:syazanou/modules/vk/bloc/newsfeed/vk_newsfeed_bloc.dart';
 import 'package:syazanou/modules/vk/models/vk_user.dart';
-import 'package:syazanou/modules/vk/providers/vk_user_provider.dart';
 import 'package:syazanou/modules/vk/repository.dart';
-import 'package:syazanou/modules/vk/widgets/dashboard_loading.dart';
 import 'package:syazanou/modules/vk/widgets/newsfeed/post_item.dart';
 import 'package:syazanou/modules/vk/widgets/vk_user_pane.dart';
 
@@ -19,15 +17,10 @@ class VkDashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageWrapper(
+    return const PageWrapper(
       title: 'Моя лента',
-      child: VkUserProvider(
-        loadingBuilder: (_) {
-          return const DashboardLoading();
-        },
-        child: const NetworkConnectionStatus(
-          child: _InnerPage(),
-        ),
+      child: NetworkConnectionStatus(
+        child: _InnerPage(),
       ),
     );
   }
@@ -46,9 +39,9 @@ class __InnerPageState extends State<_InnerPage> {
     repository: ServiceLocator.get<VkRepository>(),
   );
 
-  VkUser get vkUser => Provider.of<VkUser>(context);
-
   final _scrollToTopVisible = ValueNotifier<bool>(false);
+
+  VkUser? get userProfile => Auth.user;
 
   @override
   void initState() {
@@ -113,8 +106,10 @@ class __InnerPageState extends State<_InnerPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 10.0),
-        VkUserPane(vkUser: vkUser),
+        if (userProfile != null) ...[
+          const SizedBox(height: 10.0),
+          VkUserPane(vkUser: userProfile!),
+        ],
         const SizedBox(height: 10.0),
         Expanded(
           child: BlocBuilder(

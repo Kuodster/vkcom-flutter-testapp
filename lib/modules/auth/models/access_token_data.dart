@@ -40,7 +40,7 @@ class AccessTokenData {
     await cacheBox.delete(cacheBoxKey);
   }
 
-  factory AccessTokenData.fromCache() {
-    return cacheBox.get(cacheBoxKey)!;
+  static AccessTokenData? fromCache() {
+    return cacheBox.get(cacheBoxKey);
   }
 }

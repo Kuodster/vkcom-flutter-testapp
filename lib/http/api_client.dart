@@ -22,7 +22,7 @@ class ApiClient {
           final accessTokenData = AccessTokenData.fromCache();
 
           options.queryParameters = {
-            'access_token': accessTokenData.accessToken,
+            'access_token': accessTokenData?.accessToken,
             'v': '5.131', // VK.com api version
             'lang': 'ru',
             ...options.queryParameters,
