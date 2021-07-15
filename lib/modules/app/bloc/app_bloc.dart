@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
-import 'package:syazanou/http/http.dart';
 import 'package:syazanou/modules/app/cache.dart';
 import 'package:syazanou/modules/auth/auth.dart';
 import 'package:syazanou/modules/auth/models/access_token_data.dart';
@@ -57,14 +55,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           return;
         }
       } catch (e) {
-        if (e is DioError && e.type == DioErrorType.other) {
-          final exception = e.error;
-          if (exception is ApiException && [5, 28].contains(exception.error)) {
-            await Auth.destroy();
-            yield AppUnauthenticated();
-            return;
-          }
-        }
         yield AppStartupFailed(exception: e);
       }
     }

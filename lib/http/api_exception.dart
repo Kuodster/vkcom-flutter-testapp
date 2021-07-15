@@ -6,7 +6,6 @@ class ApiException implements Exception {
 
   final int? error;
   final String? errMessage;
-  final DioError? dioError;
   final int? responseStatus;
 
   ApiException({
@@ -14,7 +13,6 @@ class ApiException implements Exception {
     this.statusError = false,
     this.error,
     this.errMessage,
-    this.dioError,
     this.responseStatus,
   });
 

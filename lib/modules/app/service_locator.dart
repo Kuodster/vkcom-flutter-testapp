@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:syazanou/http/http.dart';
+import 'package:syazanou/modules/app/bloc/router/app_router_bloc.dart';
 import 'package:syazanou/modules/vk/repository.dart';
 
 final getIt = GetIt.instance;
@@ -10,6 +11,8 @@ class ServiceLocator {
   static Future<void> initialize() async {
     getIt.registerSingleton<ApiClient>(ApiClient.instance());
     getIt.registerSingleton<VkRepository>(VkRepository());
+    getIt.registerSingleton<AppRouterBloc>(
+        AppRouterBloc()); // For navigation without context (Hello auto_route 2+)
   }
 
   static void dispose() {}

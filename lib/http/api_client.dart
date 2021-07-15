@@ -33,9 +33,22 @@ class ApiClient {
         onResponse: (response, handler) {
           final data = response.data;
           if (data != null && data is Map && data.containsKey('error')) {
+            final apiException = ApiException.fromJson(data['error']);
+            if (apiException.error != null &&
+                [5, 28].contains(apiException.error)) {
+              ServiceLocator.get<AppRouterBloc>().add(
+                RoutingEvent(
+                  callback: (router) async {
+                    await AuthHelper.logout(
+                        router.navigatorKey.currentContext!);
+                  },
+                ),
+              );
+              return;
+            }
             return handler.reject(DioError(
               requestOptions: response.requestOptions,
-              error: ApiException.fromJson(data['error']),
+              error: apiException,
               type: DioErrorType.other,
             ));
           }

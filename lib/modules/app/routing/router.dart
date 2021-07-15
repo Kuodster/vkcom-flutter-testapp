@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:syazanou/modules/app/view/splash_page.dart';
 import 'package:syazanou/modules/auth/view/vk_auth_page.dart';
 import 'package:syazanou/modules/vk/view/vk_dashboard_page.dart';
@@ -11,8 +12,8 @@ export 'package:auto_route/annotations.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(
-      page: SplashPage,
       initial: true,
+      page: SplashPage,
       path: Routes.splashPage,
     ),
     AutoRoute(
