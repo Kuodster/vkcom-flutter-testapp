@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:syazanou/modules/vk/models/vk_attachment.dart';
 
 class SizedPhoto extends StatelessWidget {
@@ -15,7 +16,9 @@ class SizedPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final url = src ?? photoSize.url;
+    final placeholder = _buildPlaceholder(context);
     late final Widget child;
+
     if (src == null) {
       child = CachedNetworkImage(
         imageUrl: url,
@@ -44,17 +47,26 @@ class SizedPhoto extends StatelessWidget {
     );
   }
 
-  Widget get placeholder => Container(
-        decoration: BoxDecoration(
-          color: Colors.black12,
-          image: src != null
-              ? DecorationImage(
-                  image: NetworkImage(photoSize.url),
-                )
-              : null,
-        ),
-        child: const Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+  Widget _buildPlaceholder(BuildContext context) {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+
+    final child = Container(
+      decoration: BoxDecoration(
+        color: isDarkTheme ? Colors.white12 : Colors.black26,
+        image: src != null
+            ? DecorationImage(
+                image: NetworkImage(photoSize.url),
+              )
+            : null,
+      ),
+    );
+
+    if (src != null) return child;
+
+    return Shimmer.fromColors(
+      baseColor: isDarkTheme ? Colors.white24 : Colors.black38,
+      highlightColor: isDarkTheme ? Colors.white54 : Colors.black54,
+      child: child,
+    );
+  }
 }
