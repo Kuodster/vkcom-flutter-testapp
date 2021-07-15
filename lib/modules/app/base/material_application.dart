@@ -10,9 +10,6 @@ import 'package:syazanou/modules/app/service_locator.dart';
 class MaterialApplication extends StatefulWidget {
   const MaterialApplication({Key? key}) : super(key: key);
 
-  static GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-      GlobalKey<ScaffoldMessengerState>();
-
   @override
   _MaterialApplicationState createState() => _MaterialApplicationState();
 }
@@ -34,7 +31,6 @@ class _MaterialApplicationState extends State<MaterialApplication> {
         builder: (context, ThemeMode value, _) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            scaffoldMessengerKey: MaterialApplication.scaffoldMessengerKey,
             routerDelegate: _appRouter.delegate(
               navigatorObservers: () => [
                 NavigationObserver(),
