@@ -60,7 +60,7 @@ class _NetworkConnectionStatusState extends State<NetworkConnectionStatus> {
               return value == ConnectivityResult.none ? child! : placeholder;
             },
             child: Container(
-              color: Colors.black,
+              color: Theme.of(context).scaffoldBackgroundColor,
               padding: const EdgeInsets.symmetric(
                 horizontal: 20.0,
               ),

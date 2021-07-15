@@ -9,6 +9,7 @@ class Cache {
     await Hive.initFlutter();
     hive.Hive.registerAdapter(AccessTokenDataAdapter());
     await openBox<AccessTokenData>();
+    await openBox<bool>();
   }
 
   static Future<void> openBox<T>() async {
