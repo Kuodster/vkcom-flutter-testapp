@@ -21,7 +21,7 @@ class NetworkConnectionStatus extends StatefulWidget {
 class _NetworkConnectionStatusState extends State<NetworkConnectionStatus> {
   Widget? get child => widget.child;
 
-  late StreamSubscription _subscription;
+  late final StreamSubscription _subscription;
 
   final _networkStatus = ValueNotifier<ConnectivityResult?>(null);
 

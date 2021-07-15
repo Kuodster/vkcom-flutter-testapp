@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:syazanou/modules/app/helpers/theme_mode_helper.dart';
 import 'package:syazanou/modules/app/service_locator.dart';
 import 'package:syazanou/modules/app/widgets/network_connection_status.dart';
 import 'package:syazanou/modules/app/widgets/page_error.dart';
 import 'package:syazanou/modules/app/widgets/page_loading.dart';
 import 'package:syazanou/modules/app/widgets/page_wrapper.dart';
+import 'package:syazanou/modules/app/widgets/theme_mode_switcher.dart';
 import 'package:syazanou/modules/auth/auth.dart';
 import 'package:syazanou/modules/vk/bloc/newsfeed/vk_newsfeed_bloc.dart';
 import 'package:syazanou/modules/vk/models/vk_user.dart';
@@ -18,22 +18,12 @@ class VkDashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageWrapper(
+    return const PageWrapper(
       title: 'My Newsfeed',
       actions: [
-        IconButton(
-          onPressed: ThemeModeHelper.opposite,
-          icon: ValueListenableBuilder(
-            valueListenable: ThemeModeHelper.notifier,
-            builder: (context, ThemeMode value, _) => Icon(
-              value == ThemeMode.dark
-                  ? Icons.brightness_4
-                  : Icons.brightness_4_outlined,
-            ),
-          ),
-        ),
+        ThemeModeSwitcher(),
       ],
-      child: const NetworkConnectionStatus(
+      child: NetworkConnectionStatus(
         child: _InnerPage(),
       ),
     );

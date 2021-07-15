@@ -15,7 +15,7 @@ part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
-  late Box accessTokenBox;
+  late final Box accessTokenBox;
   final VkRepository repository;
 
   AppBloc({

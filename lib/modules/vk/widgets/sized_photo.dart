@@ -15,7 +15,7 @@ class SizedPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final url = src ?? photoSize.url;
-    late Widget child;
+    late final Widget child;
     if (src == null) {
       child = CachedNetworkImage(
         imageUrl: url,

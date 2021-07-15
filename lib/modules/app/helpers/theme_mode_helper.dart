@@ -14,7 +14,7 @@ class ThemeModeHelper {
           ? ThemeMode.light
           : ThemeMode.dark);
 
-  static void opposite() {
+  static void changeToOpposite() {
     themeMode = themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
   }
 

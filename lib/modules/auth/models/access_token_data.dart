@@ -8,11 +8,11 @@ class AccessTokenData {
   static String cacheBoxKey = 'token';
 
   @HiveField(0)
-  late String accessToken;
+  late final String accessToken;
   @HiveField(1)
-  late int expiresIn;
+  late final int expiresIn;
   @HiveField(2)
-  late int userId;
+  late final int userId;
 
   AccessTokenData({
     required this.accessToken,
