@@ -18,8 +18,8 @@
 
 
     <application
-        android:label="syazanou"
-        android:icon="@mipmap/ic_launcher">
+        android:label="VK Extra Light"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
