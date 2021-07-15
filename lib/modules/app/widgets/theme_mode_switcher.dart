@@ -20,7 +20,7 @@ class _ThemeModeSwitcherState extends State<ThemeModeSwitcher>
     _controller = AnimationController(
       vsync: this,
       value: ThemeModeHelper.themeMode == ThemeMode.dark ? 1.0 : 0.0,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 800),
     );
 
     ThemeModeHelper.notifier.addListener(_onThemeModeChanged);

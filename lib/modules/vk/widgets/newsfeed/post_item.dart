@@ -90,9 +90,7 @@ class PostItem extends StatelessWidget {
                   ),
                 ),
               ),
-              const Expanded(
-                child: SizedBox(),
-              ),
+              const Spacer(),
               _StatCounter(
                 count: newsfeedItem.comments?.count ?? 0,
                 icon: FaIcon(
