@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syazanou/modules/app/base/material_application.dart';
 import 'package:syazanou/modules/app/cache.dart';
+import 'package:syazanou/modules/app/helpers/theme_mode_helper.dart';
 import 'package:syazanou/modules/app/intl.dart';
 import 'package:syazanou/modules/app/logging/log.dart';
 import 'package:syazanou/modules/app/observers/bloc_debug_observer.dart';
@@ -14,6 +15,7 @@ void main() async {
   await ServiceLocator.initialize();
   await Cache.initialize();
   Intl.initialize();
+  ThemeModeHelper.setupSystemNavigation();
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

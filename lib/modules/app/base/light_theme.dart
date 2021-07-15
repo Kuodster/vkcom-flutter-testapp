@@ -34,6 +34,10 @@ class LightTheme {
           statusBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.light,
           statusBarColor: Colors.transparent,
+
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarDividerColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
         ),
       ),
       dialogTheme: DialogTheme(
