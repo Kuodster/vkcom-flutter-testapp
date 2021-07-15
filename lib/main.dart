@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +26,13 @@ void main() async {
   if (kDebugMode) {
     Bloc.observer = BlocDebugObserver();
   }
+
+  FlutterError.onError = (FlutterErrorDetails details) {
+    Log.w(details);
+    if (kReleaseMode) {
+      exit(1);
+    }
+  };
 
   runApp(const MaterialApplication());
 }

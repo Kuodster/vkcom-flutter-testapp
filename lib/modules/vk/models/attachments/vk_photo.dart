@@ -24,22 +24,23 @@ class VkPhoto {
     );
   }
 
-  VkPhotoSize get previewSize =>
+  VkPhotoSize get previewImage =>
       sizes.firstWhere((element) => element.type == 'r');
 }
 
-class VkPhotoSize {
-  final String url;
-  final int width;
-  final int height;
+class VkPhotoSize extends VkBaseImage {
   final String type;
 
   VkPhotoSize({
-    required this.url,
-    required this.width,
-    required this.height,
     required this.type,
-  });
+    url,
+    width,
+    height,
+  }) : super(
+          url: url,
+          width: width,
+          height: height,
+        );
 
   factory VkPhotoSize.fromJson(dynamic json) {
     return VkPhotoSize(

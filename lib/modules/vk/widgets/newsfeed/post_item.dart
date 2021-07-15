@@ -8,7 +8,7 @@ import 'package:syazanou/modules/vk/models/vk_attachment.dart';
 import 'package:syazanou/modules/vk/models/vk_group.dart';
 import 'package:syazanou/modules/vk/models/vk_newsfeed_item.dart';
 import 'package:syazanou/modules/vk/models/vk_user.dart';
-import 'package:syazanou/modules/vk/widgets/sized_photo.dart';
+import 'package:syazanou/modules/vk/widgets/newsfeed/post_attachment.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const textMaxLengthBeforeCollapse = 200;
@@ -154,24 +154,6 @@ class _PostPreview extends StatelessWidget {
     String? screenName = group?.name ?? user?.displayName;
 
     final VkAttachment? firstAttachment = item.attachments.firstOrNull;
-    String? imageUrl;
-    VkPhotoSize? photoSize;
-
-    if (firstAttachment != null) {
-      switch (firstAttachment.type) {
-        case attachmentPhoto:
-          final photo = firstAttachment.photo;
-          photoSize = photo?.previewSize;
-          break;
-        case attachmentDoc:
-          final doc = firstAttachment.doc;
-          if (doc?.isImage == true) {
-            photoSize = doc!.previewSize;
-            imageUrl = doc.url;
-          }
-          break;
-      }
-    }
 
     final baseTextStyle = Theme.of(context).textTheme.bodyText2!;
 
@@ -216,12 +198,11 @@ class _PostPreview extends StatelessWidget {
             text: item.text!,
           ),
         ],
-        if (photoSize != null) ...[
+        if (firstAttachment != null) ...[
           const SizedBox(height: 10.0),
           Center(
-            child: SizedPhoto(
-              src: imageUrl,
-              photoSize: photoSize,
+            child: PostAttachment(
+              attachment: firstAttachment,
             ),
           ),
         ],

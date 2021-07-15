@@ -26,7 +26,7 @@ class VkDoc {
 
   bool get isImage => ext == 'gif';
 
-  VkPhotoSize? get previewSize =>
+  VkPhotoSize? get previewImage =>
       preview?.photo?.sizes.firstWhereOrNull((element) => element.type == 'o');
 }
 
