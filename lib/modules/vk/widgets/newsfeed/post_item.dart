@@ -3,6 +3,7 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:collection/collection.dart';
+import 'package:lottie/lottie.dart';
 import 'package:syazanou/modules/vk/models/vk_attachment.dart';
 import 'package:syazanou/modules/vk/models/vk_group.dart';
 import 'package:syazanou/modules/vk/models/vk_newsfeed_item.dart';
@@ -77,7 +78,10 @@ class PostItem extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(5.0),
                   onTap: () => onLike?.call(userLikes),
-                  child: _StatCounter(
+                  child: _LikeButton(
+                    liked: userLikes,
+                    count: newsfeedItem.likes?.count ?? 0,
+                  ) /*_StatCounter(
                     count: newsfeedItem.likes?.count ?? 0,
                     icon: FaIcon(
                       userLikes
@@ -87,7 +91,8 @@ class PostItem extends StatelessWidget {
                           ? Colors.orange
                           : baseTextStyle.color!.withOpacity(0.7),
                     ),
-                  ),
+                  )*/
+                  ,
                 ),
               ),
               const Spacer(),
@@ -335,6 +340,108 @@ class __ItemTextState extends State<_ItemText> {
           ],
         ],
       ),
+    );
+  }
+}
+
+class _LikeButton extends StatefulWidget {
+  final bool liked;
+  final int count;
+
+  const _LikeButton({
+    Key? key,
+    this.liked = false,
+    this.count = 0,
+  }) : super(key: key);
+
+  @override
+  __LikeButtonState createState() => __LikeButtonState();
+}
+
+class __LikeButtonState extends State<_LikeButton>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  int get count => widget.count;
+
+  bool get liked => widget.liked;
+
+  /*bool _visible = false;*/
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2500),
+    );
+
+    //..addStatusListener(_animationStatusChanged)
+  }
+
+  void _animateOnce() {
+    _controller.forward(from: 0.0);
+  }
+
+  /*void _animationStatusChanged(AnimationStatus status) {
+    bool? visible;
+    if (status == AnimationStatus.forward) {
+      visible = true;
+    } else if (status == AnimationStatus.completed) {
+      visible = false;
+    }
+    if (visible != null) {
+      setState(() {
+        _visible = visible!;
+      });
+    }
+  }*/
+
+  @override
+  void didUpdateWidget(covariant _LikeButton oldWidget) {
+    if (liked && liked != oldWidget.liked) {
+      _animateOnce();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    //_controller.removeStatusListener(_animationStatusChanged);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final baseTextStyle = Theme.of(context).textTheme.bodyText2!;
+
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.centerLeft,
+      children: [
+        _StatCounter(
+          count: count,
+          icon: FaIcon(
+            liked ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+            color:
+                liked ? Colors.orange : baseTextStyle.color!.withOpacity(0.7),
+          ),
+        ),
+        Positioned(
+          left: -40.0,
+          top: -100.0,
+          child: SizedBox(
+            width: 120.0,
+            height: 120.0,
+            child: Lottie.asset(
+              'assets/lottie/sparks.json',
+              controller: _controller,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
