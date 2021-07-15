@@ -21,6 +21,7 @@ class _VkAuthPageState extends State<VkAuthPage> {
     'response_type': 'token',
     'scope': (65536 + 8192 + 2).toString(),
     'revoke': '1',
+    'lang': 'en',
   });
 
   bool _finished = false;

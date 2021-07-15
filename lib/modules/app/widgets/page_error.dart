@@ -20,7 +20,7 @@ class PageError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var message = 'Что-то пошло не так. Попробуйте обновить страницу';
+    var message = 'Whoops, something went wrong! Please reload the page.';
     if (exception != null && exception is DioError) {
       final exception = (this.exception as DioError);
       message = exception.message;
@@ -45,14 +45,12 @@ class PageError extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   Text(
                     message,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                   if (onRefresh != null) ...[
                     const SizedBox(height: 20.0),
                     StyledButton(
-                      label: 'Обновить',
+                      label: 'Reload',
                       onTap: onRefresh,
                     ),
                   ],

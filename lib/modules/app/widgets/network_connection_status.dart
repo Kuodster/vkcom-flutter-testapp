@@ -75,16 +75,13 @@ class _NetworkConnectionStatusState extends State<NetworkConnectionStatus> {
                     ),
                   ),
                   const SizedBox(width: 10.0),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 10.0,
                     ),
                     child: Text(
-                      'Проверьте интернет соединение',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      'Check your internet connection',
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ],

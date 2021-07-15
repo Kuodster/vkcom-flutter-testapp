@@ -30,6 +30,7 @@ class PostItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userLikes = newsfeedItem.likes?.userLikes == true;
+    final baseTextStyle = Theme.of(context).textTheme.bodyText2!;
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -82,7 +83,9 @@ class PostItem extends StatelessWidget {
                       userLikes
                           ? FontAwesomeIcons.solidHeart
                           : FontAwesomeIcons.heart,
-                      color: userLikes ? Colors.orange : Colors.white70,
+                      color: userLikes
+                          ? Colors.orange
+                          : baseTextStyle.color!.withOpacity(0.7),
                     ),
                   ),
                 ),
@@ -92,16 +95,16 @@ class PostItem extends StatelessWidget {
               ),
               _StatCounter(
                 count: newsfeedItem.comments?.count ?? 0,
-                icon: const FaIcon(
+                icon: FaIcon(
                   FontAwesomeIcons.comments,
-                  color: Colors.white70,
+                  color: baseTextStyle.color!.withOpacity(0.7),
                 ),
               ),
               _StatCounter(
                 count: newsfeedItem.reposts?.count ?? 0,
-                icon: const FaIcon(
+                icon: FaIcon(
                   FontAwesomeIcons.share,
-                  color: Colors.white70,
+                  color: baseTextStyle.color!.withOpacity(0.7),
                 ),
               ),
             ],
@@ -167,6 +170,8 @@ class _PostPreview extends StatelessWidget {
       }
     }
 
+    final baseTextStyle = Theme.of(context).textTheme.bodyText2!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -186,17 +191,15 @@ class _PostPreview extends StatelessWidget {
                 children: [
                   Text(
                     screenName ?? '',
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: baseTextStyle,
                   ),
                   const SizedBox(height: 5.0),
                   Text(
-                    intl.DateFormat('d MMM в HH:mm', 'ru').format(
+                    intl.DateFormat('d MMM, HH:mm', 'en').format(
                       DateTime.fromMillisecondsSinceEpoch(item.date * 1000),
                     ),
-                    style: const TextStyle(
-                      color: Colors.white54,
+                    style: baseTextStyle.copyWith(
+                      color: baseTextStyle.color!.withOpacity(0.54),
                     ),
                   ),
                 ],
@@ -249,9 +252,7 @@ class _StatCounter extends StatelessWidget {
             const SizedBox(width: 10.0),
             Text(
               count.toString(),
-              style: const TextStyle(
-                color: Colors.white,
-              ),
+              style: Theme.of(context).textTheme.bodyText2,
             )
           ],
         ],
@@ -308,9 +309,11 @@ class __ItemTextState extends State<_ItemText> {
 
   @override
   Widget build(BuildContext context) {
-    final style = TextStyle(
-      color: Colors.white.withOpacity(0.9),
-    );
+    final style = Theme.of(context).textTheme.bodyText2!.copyWith(
+          fontSize: 13.0,
+          height: 1.2,
+        );
+
     return GestureDetector(
       onTap: _expand,
       child: Column(

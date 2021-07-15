@@ -12,6 +12,8 @@ class VkUserPane extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final baseTextStyle = Theme.of(context).textTheme.bodyText2!;
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 20.0,
@@ -36,8 +38,7 @@ class VkUserPane extends StatelessWidget {
               children: [
                 Text(
                   vkUser.displayName,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: baseTextStyle.copyWith(
                     fontSize: 16.0,
                   ),
                 ),
@@ -45,8 +46,8 @@ class VkUserPane extends StatelessWidget {
                   const SizedBox(height: 5.0),
                   Text(
                     vkUser.phone!,
-                    style: const TextStyle(
-                      color: Colors.white60,
+                    style: baseTextStyle.copyWith(
+                      color: baseTextStyle.color!.withOpacity(0.6),
                       fontSize: 12.0,
                     ),
                   ),
@@ -61,9 +62,9 @@ class VkUserPane extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () => AuthHelper.logoutWithConfirmation(context),
-                icon: const Icon(
+                icon: Icon(
                   Icons.exit_to_app,
-                  color: Colors.white,
+                  color: baseTextStyle.color,
                 ),
               ),
             ],

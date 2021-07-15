@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:syazanou/modules/app/widgets/empty_app_bar.dart';
 
 class PageWrapper extends StatelessWidget {
@@ -20,7 +19,7 @@ class PageWrapper extends StatelessWidget {
       appBar: title == null && actions == null
           ? const EmptyAppBar()
           : AppBar(
-              brightness: Brightness.dark,
+              brightness: Theme.of(context).brightness,
               title: Text(title!),
               actions: actions,
             ),

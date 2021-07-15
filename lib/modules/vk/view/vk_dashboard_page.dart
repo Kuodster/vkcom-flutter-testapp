@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:syazanou/modules/app/helpers/theme_mode_helper.dart';
 import 'package:syazanou/modules/app/service_locator.dart';
 import 'package:syazanou/modules/app/widgets/network_connection_status.dart';
 import 'package:syazanou/modules/app/widgets/page_error.dart';
@@ -17,9 +18,22 @@ class VkDashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PageWrapper(
-      title: 'Моя лента',
-      child: NetworkConnectionStatus(
+    return PageWrapper(
+      title: 'My Newsfeed',
+      actions: [
+        IconButton(
+          onPressed: ThemeModeHelper.opposite,
+          icon: ValueListenableBuilder(
+            valueListenable: ThemeModeHelper.notifier,
+            builder: (context, ThemeMode value, _) => Icon(
+              value == ThemeMode.dark
+                  ? Icons.brightness_4
+                  : Icons.brightness_4_outlined,
+            ),
+          ),
+        ),
+      ],
+      child: const NetworkConnectionStatus(
         child: _InnerPage(),
       ),
     );
@@ -110,7 +124,6 @@ class __InnerPageState extends State<_InnerPage> {
           const SizedBox(height: 10.0),
           VkUserPane(vkUser: userProfile!),
         ],
-        const SizedBox(height: 10.0),
         Expanded(
           child: BlocBuilder(
             bloc: _bloc,
@@ -127,14 +140,12 @@ class __InnerPageState extends State<_InnerPage> {
 
               if (state is VkNewsfeedSuccess) {
                 if (state.feedData.items.isEmpty) {
-                  return const Padding(
-                    padding: EdgeInsets.all(20.0),
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
                     child: Center(
                       child: Text(
-                        'Ваша лента пуста',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+                        'Your newsfeed is empty',
+                        style: Theme.of(context).textTheme.bodyText2,
                       ),
                     ),
                   );
@@ -150,17 +161,17 @@ class __InnerPageState extends State<_InnerPage> {
                           physics: const AlwaysScrollableScrollPhysics(),
                           controller: _controller,
                           itemCount: state.feedData.items.length + 1,
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
                           itemBuilder: (context, index) {
                             if (index >= state.feedData.items.length) {
                               if (state.hasReachedMax) {
-                                return const Padding(
-                                  padding: EdgeInsets.all(20.0),
+                                return Padding(
+                                  padding: const EdgeInsets.all(20.0),
                                   child: Center(
                                     child: Text(
-                                      'На этом всё! Возвращайтесь позже.',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
+                                      'That\'s all for now! Come back later.',
+                                      style:
+                                          Theme.of(context).textTheme.bodyText2,
                                     ),
                                   ),
                                 );

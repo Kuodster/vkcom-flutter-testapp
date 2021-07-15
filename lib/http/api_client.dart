@@ -24,7 +24,7 @@ class ApiClient {
           options.queryParameters = {
             'access_token': accessTokenData?.accessToken,
             'v': '5.131', // VK.com api version
-            'lang': 'ru',
+            'lang': 'en',
             ...options.queryParameters,
           };
 

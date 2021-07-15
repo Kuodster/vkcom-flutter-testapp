@@ -4,6 +4,6 @@ class Intl {
   Intl._();
 
   static void initialize() {
-    initializeDateFormatting('ru', null);
+    initializeDateFormatting('en', null);
   }
 }

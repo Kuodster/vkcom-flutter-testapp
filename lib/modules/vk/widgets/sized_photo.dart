@@ -46,7 +46,7 @@ class SizedPhoto extends StatelessWidget {
 
   Widget get placeholder => Container(
         decoration: BoxDecoration(
-          color: Colors.grey[800],
+          color: Colors.black12,
           image: src != null
               ? DecorationImage(
                   image: NetworkImage(photoSize.url),

@@ -94,7 +94,7 @@ class __InnerState extends State<_Inner> {
                 showLoginButton
                     ? StyledButton(
                         onTap: _startAuthentication,
-                        label: 'Вход',
+                        label: 'Sign in',
                       )
                     : SizedBox(
                         width: 30.0,

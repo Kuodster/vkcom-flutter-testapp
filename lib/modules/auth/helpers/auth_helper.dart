@@ -17,19 +17,19 @@ class AuthHelper {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Выход из учётной записи'),
+          title: const Text('Sign out'),
           content:
-              const Text('Вы уверены, что хотите выйти из учётной записи?'),
+              const Text('Are you sure that you want to sign out of your account?'),
           actions: [
             TextButton(
               onPressed: () {
                 context.router.pop();
               },
-              child: const Text('Нет'),
+              child: const Text('No'),
             ),
             TextButton(
               onPressed: () => logout(context),
-              child: const Text('Да'),
+              child: const Text('Yes'),
             ),
           ],
         );
