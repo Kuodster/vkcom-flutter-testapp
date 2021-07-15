@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:syazanou/modules/app/helpers/theme_mode_helper.dart';
-import 'package:syazanou/modules/app/logging/log.dart';
 
 class ThemeModeSwitcher extends StatefulWidget {
   const ThemeModeSwitcher({Key? key}) : super(key: key);
@@ -35,7 +34,6 @@ class _ThemeModeSwitcherState extends State<ThemeModeSwitcher>
   }
 
   void _onThemeModeChanged() {
-    Log.d(ThemeModeHelper.themeMode);
     if (ThemeModeHelper.themeMode == ThemeMode.dark) {
       _controller.forward(from: 0.0);
     } else {
