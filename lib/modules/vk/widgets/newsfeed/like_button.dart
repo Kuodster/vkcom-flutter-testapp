@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:syazanou/modules/vk/widgets/newsfeed/stat_counter.dart';
 
-enum LikeButtonStyle { sparks, fireworks }
+enum LikeButtonStyle { sparks, fireworks, heart }
 
 class LikeButton extends StatefulWidget {
   final bool liked;
@@ -14,7 +14,7 @@ class LikeButton extends StatefulWidget {
     Key? key,
     this.liked = false,
     this.count = 0,
-    this.style = LikeButtonStyle.sparks,
+    this.style = LikeButtonStyle.heart,
   }) : super(key: key);
 
   @override
@@ -41,13 +41,18 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
       duration: Duration(
         milliseconds: _animationDurationMs(),
       ),
+      value: _initialAnimationValue(),
     );
 
     //..addStatusListener(_animationStatusChanged)
   }
 
   void _animateOnce() {
-    _controller.forward(from: 0.0);
+    if (style == LikeButtonStyle.heart && _controller.value == 1.0) {
+      _controller.reverse(from: 1.0);
+    } else if (liked) {
+      _controller.forward(from: 0.0);
+    }
   }
 
   /*void _animationStatusChanged(AnimationStatus status) {
@@ -66,7 +71,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
 
   @override
   void didUpdateWidget(covariant LikeButton oldWidget) {
-    if (liked && liked != oldWidget.liked) {
+    if (liked != oldWidget.liked) {
       _animateOnce();
     }
     super.didUpdateWidget(oldWidget);
@@ -81,27 +86,50 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final baseTextStyle = Theme.of(context).textTheme.bodyText2!;
-
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.centerLeft,
       children: [
         StatCounter(
           count: count,
-          icon: FaIcon(
-            liked ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
-            color:
-                liked ? _likedColor() : baseTextStyle.color!.withOpacity(0.7),
-          ),
+          icon: _buildIcon(),
         ),
         _buildAnimation(),
       ],
     );
   }
 
+  double _initialAnimationValue() {
+    switch (style) {
+      case LikeButtonStyle.heart:
+        return liked ? 1.0 : 0.0;
+      default:
+        return 0;
+    }
+  }
+
+  Widget _buildIcon() {
+    final baseTextStyle = Theme.of(context).textTheme.bodyText2!;
+
+    switch (style) {
+      // We do not need an icon for heart style, just a simple 24x24 placeholder (24 - default icon size)
+      case LikeButtonStyle.heart:
+        return const SizedBox(
+          height: 24.0,
+          width: 24.0,
+        );
+      default:
+        return FaIcon(
+          liked ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+          color: liked ? _likedColor() : baseTextStyle.color!.withOpacity(0.7),
+        );
+    }
+  }
+
   int _animationDurationMs() {
     switch (style) {
+      case LikeButtonStyle.heart:
+        return 600;
       case LikeButtonStyle.fireworks:
         return 2500;
       default:
@@ -120,6 +148,18 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
 
   Widget _buildAnimation() {
     switch (style) {
+      case LikeButtonStyle.heart:
+        return Positioned(
+          left: 10.0,
+          child: SizedBox(
+            width: 24.0,
+            height: 24.0,
+            child: Lottie.asset(
+              'assets/lottie/like-heart.json',
+              controller: _controller,
+            ),
+          ),
+        );
       case LikeButtonStyle.fireworks:
         return Positioned(
           left: -40.0,
