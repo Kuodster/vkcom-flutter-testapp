@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:syazanou/modules/app/logging/log.dart';
 
 part 'attachments/vk_photo.dart';
 

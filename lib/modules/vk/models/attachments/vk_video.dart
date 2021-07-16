@@ -19,7 +19,6 @@ class VkVideo {
   });
 
   factory VkVideo.fromJson(dynamic json) {
-    Log.d(json);
     final image = <VkVideoImage>[];
     if (json['image'] != null) {
       for (final img in json['image']) {
